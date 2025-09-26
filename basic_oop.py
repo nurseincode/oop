@@ -42,8 +42,7 @@
 
 class Car:
     def __init__(self, make, model):
-        # Dunder makes the attribute private
-        self.__make = make 
+        self.__make = make  # Dunder make attributes private
         self.model = model 
 
     
@@ -52,11 +51,30 @@ class Car:
     
     def __str__(self):
         return(f'This is {self.__make} {self.model}')
+    
+   # Getter
+    def get_make(self):
+        # Authorize
+        # if condition
+        return self.__make # Attibute can be accessed but not changed
+        # side-effects
+
+    # Setter
+    def set_make(self, new_make):
+        # Validate new_make
+        # Authorize
+        self.__make = new_make
 
 
 # Main
 my_car = Car('Toyota', 'Prius')
 # my_car.start()
+# print(my_car.__make)
 # your_car = Car('Ford', 'Ranger') 
-print(my_car.__make)
+# your_car.model = 'Prius' # directly change object attributes after the object is created
+# print(your_car)
+print(my_car.get_make()) # safe way to access attribute via getter 
+my_car.set_make('Honda') # use the setter to change the make
+print(my_car.get_make()) # new_make
+
 
