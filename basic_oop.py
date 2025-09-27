@@ -49,7 +49,7 @@ class Car:
     def start(self):
         print(f'{self.__make} {self.model} started!')
     
-    def __str__(self):
+    def __str__(self): # Returns a string representation of the object
         return(f'This is {self.__make} {self.model}')
     
    # Getter
@@ -65,16 +65,30 @@ class Car:
         # Authorize
         self.__make = new_make
 
+class PetrolCar(Car): # Subclass of Car
+    def __init__(self, make, model, tank_capacity_l):
+        super().__init__(make,model) # super() function gives access to the superclass
+        self.tank_capacity_l = tank_capacity_l
+    
+    def __str__(self):
+        # Relies on superstr to build the first part of the string
+        return f'{super().__str__()}. It has a {self.tank_capacity_l}l tank.' 
+
+
+
 
 # Main
-my_car = Car('Toyota', 'Prius')
+# my_car = Car('Toyota', 'Prius')
+my_car = PetrolCar('Toyota', 'Prius', 47)
 # my_car.start()
 # print(my_car.__make)
-# your_car = Car('Ford', 'Ranger') 
+your_car = Car('Ford', 'Ranger') 
 # your_car.model = 'Prius' # directly change object attributes after the object is created
-# print(your_car)
-print(my_car.get_make()) # safe way to access attribute via getter 
-my_car.set_make('Honda') # use the setter to change the make
-print(my_car.get_make()) # new_make
+print(my_car)
+print(your_car)
+# print(my_car.get_make()) # safe way to access attribute via getter 
+# my_car.set_make('Honda') # use the setter to change attr
+# print(my_car.get_make()) # get new_make
+
 
 
