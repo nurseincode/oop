@@ -41,9 +41,10 @@
 
 
 class Car:
-    def __init__(self, make, model):
+    def __init__(self, make, model, engine):
         self.__make = make  # Dunder make attributes private
         self.model = model 
+        self.engine = engine
 
     
     def start(self):
@@ -66,26 +67,36 @@ class Car:
         self.__make = new_make
 
 class PetrolCar(Car): # Subclass of Car
-    def __init__(self, make, model, tank_capacity_l):
-        super().__init__(make,model) # super() function gives access to the superclass
+    def __init__(self, make, model, engine, tank_capacity_l):
+        super().__init__(make,model, engine) # super() function gives access to the superclass
         self.tank_capacity_l = tank_capacity_l
+        
     
     def __str__(self):
         # Relies on superstr to build the first part of the string
         return f'{super().__str__()}. It has a {self.tank_capacity_l}l tank.' 
 
+# Composition
 
+class Engine:
+    def __init__(self, type, max_power_kw):
+        self.type = type
+        self.max_power_kw = max_power_kw
+    
+    def __str__(self):
+        return f'This is a {self.type} engine with a max power of {self.max_power_kw}'
 
 
 # Main
+engine1 = Engine(type='petrol', max_power_kw=235)
 # my_car = Car('Toyota', 'Prius')
-my_car = PetrolCar('Toyota', 'Prius', 47)
+my_car = PetrolCar(make='Toyota', model='Prius', tank_capacity_l=47, engine=engine1)
 # my_car.start()
 # print(my_car.__make)
-your_car = Car('Ford', 'Ranger') 
+# your_car = Car('Ford', 'Ranger') 
 # your_car.model = 'Prius' # directly change object attributes after the object is created
 print(my_car)
-print(your_car)
+# print(your_car)
 # print(my_car.get_make()) # safe way to access attribute via getter 
 # my_car.set_make('Honda') # use the setter to change attr
 # print(my_car.get_make()) # get new_make
