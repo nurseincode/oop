@@ -2,7 +2,7 @@
 
 # class Car: # Instances and memory location
 #     # Constructor - A special method that sets up attributes of a new instance
-#     # called automatically whrn a new instance is created
+#     # Called automatically when a new instance is created
 #     def __init__(self): # Self is passed implicitly by the interpreter
 #         print(f'Called __init__')
 #         print(self)
@@ -40,66 +40,87 @@
 # # print(my_car.model)
 
 
-class Car:
-    def __init__(self, make, model, engine):
-        self.__make = make  # Dunder make attributes private
-        self.model = model 
-        self.engine = engine
+
+
+# class Car:
+#     def __init__(self, make, model, engine):
+#         self.__make = make  # Dunder make attributes private
+#         self.model = model 
+#         self.engine = engine
 
     
-    def start(self):
-        print(f'{self.__make} {self.model} started!')
+#     def start(self):
+#         print(f'{self.__make} {self.model} started!')
     
-    def __str__(self): # Returns a string representation of the object
-        return(f'This is {self.__make} {self.model}')
+#     def __str__(self): # Returns a string representation of the object
+#         return(f'This is {self.__make} {self.model}')
     
-   # Getter
-    def get_make(self):
-        # Authorize
-        # if condition
-        return self.__make # Attibute can be accessed but not changed
-        # side-effects
+#    # Getter
+#     def get_make(self):
+#         # Authorize
+#         # if condition
+#         return self.__make # Attibute can be accessed but not changed
+#         # side-effects
 
-    # Setter
-    def set_make(self, new_make):
-        # Validate new_make
-        # Authorize
-        self.__make = new_make
+#     # Setter
+#     def set_make(self, new_make):
+#         # Validate new_make
+#         # Authorize
+#         self.__make = new_make
 
-class PetrolCar(Car): # Subclass of Car
-    def __init__(self, make, model, engine, tank_capacity_l):
-        super().__init__(make,model, engine) # super() function gives access to the superclass
-        self.tank_capacity_l = tank_capacity_l
+# Inheritance - "is-a" relationship
+# class PetrolCar(Car): # Subclass of Car
+#     def __init__(self, make, model, engine, tank_capacity_l):
+#         super().__init__(make,model, engine) # super() function gives access to the superclass
+#         self.tank_capacity_l = tank_capacity_l
         
     
-    def __str__(self):
-        # Relies on superstr to build the first part of the string
-        return f'{super().__str__()}. It has a {self.tank_capacity_l}l tank.' 
+#     def __str__(self):
+#         # Relies on superstr to build the first part of the string
+#         return f'{super().__str__()}. It has a {self.tank_capacity_l}l tank.' 
 
-# Composition
+# # Composition - "has-a" relationship
+
+# class Engine:
+#     def __init__(self, type, max_power_kw):
+#         self.type = type
+#         self.max_power_kw = max_power_kw
+    
+#     def __str__(self):
+#         return f'This is a {self.type} engine with a max power of {self.max_power_kw}kW'
+
+
+# # Main
+# engine1 = Engine(type='petrol', max_power_kw=235)
+# # my_car = Car('Toyota', 'Prius')
+# my_car = PetrolCar(make='Toyota', model='Prius', tank_capacity_l=47, engine=engine1)
+# # my_car.start()
+# # print(my_car.__make)
+# # your_car = Car('Ford', 'Ranger') 
+# # your_car.model = 'Prius' # directly change object attributes after the object is created
+# print(my_car.engine)
+# # print(your_car)
+# # print(my_car.get_make()) # safe way to access attribute via getter 
+# # my_car.set_make('Honda') # use the setter to change attr
+# # print(my_car.get_make()) # get new_make
 
 class Engine:
-    def __init__(self, type, max_power_kw):
-        self.type = type
-        self.max_power_kw = max_power_kw
+    def start(self):
+        print('Engine started')
+
+class Car:
+    # def __init__(self):
+    #     self.engine = Engine() # Composition
+    def __init__(self, engine):
+        self.engine = engine
+
+#     def start_car(self):
+#         self.engine.start() # Delegation to the Engine object
     
-    def __str__(self):
-        return f'This is a {self.type} engine with a max power of {self.max_power_kw}'
+# my_car = Car()
+# my_car.start_car()
 
-
-# Main
-engine1 = Engine(type='petrol', max_power_kw=235)
-# my_car = Car('Toyota', 'Prius')
-my_car = PetrolCar(make='Toyota', model='Prius', tank_capacity_l=47, engine=engine1)
-# my_car.start()
-# print(my_car.__make)
-# your_car = Car('Ford', 'Ranger') 
-# your_car.model = 'Prius' # directly change object attributes after the object is created
-print(my_car)
-# print(your_car)
-# print(my_car.get_make()) # safe way to access attribute via getter 
-# my_car.set_make('Honda') # use the setter to change attr
-# print(my_car.get_make()) # get new_make
-
-
+engine1 = Engine()
+Car1 = Car(engine1)
+Car2 = Car(engine1)
 
